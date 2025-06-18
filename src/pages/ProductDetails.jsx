@@ -11,12 +11,14 @@ import {
   StatusBar,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import CartButton from "../components/CartButton";
+import { useNavigation } from "@react-navigation/native";
 
 const ProductDetails = ({ route }) => {
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const { productId } = route.params;
-
+  const navigation = useNavigation();
   useEffect(() => {
     fetchProductDetails();
   }, [productId]);
@@ -27,7 +29,7 @@ const ProductDetails = ({ route }) => {
         `https://devfrontendapi.aapkabazar.co/api/product?productId=${productId}&cityId=619f219d26d9ad0f34102dd2`
       );
       if (response.data?.success) setProduct(response.data.product);
-      console.log(response.data.product.images);
+
       setLoading(false);
     } catch (error) {
       setLoading(false);
@@ -56,11 +58,22 @@ const ProductDetails = ({ route }) => {
       <ScrollView style={styles.container}>
         <View
           style={{
+            flexDirection: "row",
+            alignItems: "center",
             padding: 16,
             backgroundColor: "#f8f8f8",
-            alignItems: "center",
           }}
         >
+          <Text
+            onPress={() => navigation?.goBack?.()}
+            style={{
+              fontSize: 28,
+              marginRight: 12,
+              color: "#333",
+            }}
+          >
+            {"←"}
+          </Text>
           <Text
             style={{
               fontSize: 22,
@@ -83,6 +96,24 @@ const ProductDetails = ({ route }) => {
         <View style={styles.detailsContainer}>
           <Text style={styles.price}>₹{product.price}</Text>
           <Text style={styles.description}>{product.description}</Text>
+        </View>
+        <View
+          style={{
+            justifyContent: "center",
+            alignItems: "center",
+            width: "100%",
+          }}
+        >
+          <View style={{ width: 120 }}>
+            <CartButton
+              product={{
+                name: product.name,
+                id: product.id,
+                price: product.minSellPrice,
+                image: product.images,
+              }}
+            />
+          </View>
         </View>
       </ScrollView>
     </SafeAreaView>

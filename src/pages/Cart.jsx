@@ -7,6 +7,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   Alert,
+  Dimensions,
 } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import CartButton from "../components/CartButton";
@@ -45,12 +46,14 @@ const Cart = () => {
 
   const renderItem = ({ item }) => (
     <View style={styles.itemContainer}>
-      <Image
-        source={{
-          uri: `https://image.aapkabazar.co/product/${item.id}/${item.image[0]}?type=png`,
-        }}
-        style={styles.image}
-      />
+      {item.image?.length > 0 && (
+        <Image
+          source={{
+            uri: `https://image.aapkabazar.co/product/${item.id}/${item.image[0]}?type=png`,
+          }}
+          style={styles.image}
+        />
+      )}
       <View style={styles.itemDetails}>
         <Text style={styles.itemName}>{item.name}</Text>
         <Text style={styles.itemPrice}>Price: ₹{item.price.toFixed(2)}</Text>
@@ -90,7 +93,11 @@ const Cart = () => {
         data={cartState}
         keyExtractor={(item) => item.id.toString()}
         renderItem={renderItem}
-        contentContainerStyle={{ paddingBottom: 16 }}
+        style={{ maxHeight: Dimensions.get("screen").height * 0.6 }}
+        scrollEnabled
+        contentContainerStyle={{
+          paddingBottom: 16,
+        }}
       />
       <View style={styles.billingContainer}>
         <Text style={styles.billingHeading}>Billing Summary</Text>

@@ -50,13 +50,9 @@ export default function Homepage() {
       setLoading(true);
       setError(null);
 
-      setLoading(false);
-
       const response = await axios.get(
         `https://devfrontendapi.aapkabazar.co/api/autocomplete?cityId=619f219d26d9ad0f34102dd2&keyword=rice`
       );
-
-      console.log("API Response:", response.data);
 
       if (response.data.success && response.data.products) {
         const formattedProds = response.data.products.map((item) => {
@@ -69,10 +65,7 @@ export default function Homepage() {
           };
         });
 
-        console.log("Formatted Products:", formattedProds);
         setProducts(formattedProds);
-      } else {
-        console.log("API returned no products or success false");
       }
     } catch (err) {
       console.error("Error fetching products:", err);
@@ -86,9 +79,6 @@ export default function Homepage() {
       fetchProducts();
     }, [])
   );
-
-  console.log("Homepage render - products count:", products.length);
-  console.log("Homepage render - products:", products);
 
   if (loading) {
     return (

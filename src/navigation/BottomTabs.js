@@ -2,7 +2,8 @@ import { StyleSheet } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Homepage from "../pages/Homepage";
 import Cart from "../pages/Cart";
-import Icon from "react-native-vector-icons/Feather";
+import HomeIcon from "../assets/home.svg";
+import CartIcon from "../assets/shopping-cart.svg";
 
 function BottomTabs() {
   const BottomTabs = createBottomTabNavigator();
@@ -16,7 +17,7 @@ function BottomTabs() {
       <BottomTabs.Screen
         options={{
           tabBarIcon: ({ focused }) => (
-            <Icon name="home" size={30} color={focused ? "#0a3b64" : "#aaa"} />
+            <HomeIcon fill={focused ? "#0a3b64" : "#aaa"} />
           ),
           tabBarLabel: () => null,
         }}
@@ -26,11 +27,7 @@ function BottomTabs() {
       <BottomTabs.Screen
         options={{
           tabBarIcon: ({ focused }) => (
-            <Icon
-              name="shopping-cart"
-              size={30}
-              color={focused ? "#0a3b64" : "#aaa"}
-            />
+            <CartIcon fill={focused ? "#0a3b64" : "#fff"} />
           ),
           tabBarLabel: () => null,
         }}
