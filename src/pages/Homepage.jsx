@@ -146,7 +146,7 @@ export default function Homepage() {
         {products.length === 0 ? (
           <View style={styles.emptyContainer}>
             <Text style={styles.emptyText}>No products found</Text>
-            <Text style={styles.emptySubtext}>Try refreshing the page</Text>
+            <Text style={styles.emptySubtext}>Try again later</Text>
           </View>
         ) : (
           <FlatList
