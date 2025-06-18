@@ -5,17 +5,36 @@
  * @format
  */
 
-import { NewAppScreen } from '@react-native/new-app-screen';
-import { StatusBar, StyleSheet, useColorScheme, View } from 'react-native';
+import { NewAppScreen } from "@react-native/new-app-screen";
+import { StatusBar, StyleSheet, useColorScheme, View } from "react-native";
+import { Provider } from "react-redux";
+import store from "./src/redux/store";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import Homepage from "./src/pages/Homepage";
+import { NavigationContainer } from "@react-navigation/native";
+import {
+  BottomTabBar,
+  createBottomTabNavigator,
+} from "@react-navigation/bottom-tabs";
+import BottomTabs from "./src/navigation/BottomTabs";
+import ProductDetails from "./src/pages/ProductDetails";
 
 function App() {
-  const isDarkMode = useColorScheme() === 'dark';
+  const Stack = createNativeStackNavigator();
 
   return (
-    <View style={styles.container}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <NewAppScreen templateFileName="App.tsx" />
-    </View>
+    <Provider store={store}>
+      <NavigationContainer>
+        <Stack.Navigator
+          screenOptions={{
+            headerShown: false,
+          }}
+        >
+          <Stack.Screen name="main" component={BottomTabs} />
+          <Stack.Screen name="ProductDetails" component={ProductDetails} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </Provider>
   );
 }
 
